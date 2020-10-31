@@ -1,96 +1,105 @@
+/*
+Öğrenci No: 20110608
+Ad SOyad: Fuat ŞENGÜL
+Konu: Veri Yapıları Dersi / Index Tablosu Oluşturma
+*/
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-int sayi[2][15] = {{18060311, 20060045, 19061091, 20060134, 20060678, 18061086, 20060032, 20060067, 19060456, 18060245, 20060110, 20060234, 20060141, 20060011, 20060012},
-                       {40, 50, 75, 90, 40, 75, 50, 60, 60, 75, 40, 90, 60, 50, 60}};
-int N=15;
 
-int main(void)
-{    for (int i = 0; i < N; i++)
+int N = 15;
+int ogrenciNotlari[2][15] = {{18060311, 20060045, 19061091, 20060134, 20060678, 18061086, 20060032, 20060067, 19060456, 18060245, 20060110, 20060234, 20060141, 20060011, 20060012},
+                             {40, 50, 75, 90, 40, 75, 50, 60, 60, 75, 40, 90, 60, 50, 60}};
+
+int index[15];
+int main()
+{
+    //ekle();
+    //sil(5,index);
+    //degistir(18060245,90);
+    //yazdir(55);
+}
+
+ekle()
+{
+    int i;
+    int j;
+    for (i = 0; i < N; i++)
     {
-        printf("%d-%d\n",sayi[0][i],sayi[1][i]);
+        index[i] = i;
     }
-     printf("---------------\n");
-    ekle(sayi);
 
-    for (int i = 0; i < N; i++)
+    for (i = 0; i < N - 1; i++)
     {
-        printf("%d-%d\n",sayi[0][i],sayi[1][i]);
-    }
-    printf("---------------\n");
-    yazdir(sayi,50);
-    printf("---------------\n");
+        for (j = i + 1; j < N; j++)
+        {
+            int temp;
 
-    degistir(sayi,20060234,80);
-    for (int i = 0; i < N; i++)
-    {
-        printf("%d-%d\n",sayi[0][i],sayi[1][i]);
+            if (ogrenciNotlari[1][index[i]] < ogrenciNotlari[1][index[j]])
+            {
+                temp = index[i];
+                index[i] = index[j];
+                index[j] = temp;
+            }
+            else if (ogrenciNotlari[1][index[i]] == ogrenciNotlari[1][index[j]])
+            {
+                if (ogrenciNotlari[0][index[i]] > ogrenciNotlari[0][index[j]])
+                {
+                    temp = index[i];
+                    index[i] = index[j];
+                    index[j] = temp;
+                }
+            }
+        }
     }
 }
 
-degistir(int sayi[2][15],int ogrNo,int yeniNot){
-     for (int i = 0; i < N; i++)
+sil(int ind)
+{
+    int i;
+    for (i = 0; i < N; i++)
     {
-        if (sayi[0][i]==ogrNo)
+        if (index[i] == ind)
         {
-            sayi[1][i]=yeniNot;
             break;
         }
-        
     }
 
-    ekle(sayi);
-}
-
-ekle(int sayi[2][15]){
-    int i, gecici, tut;
-    for (gecici = 1; gecici < N; gecici++)
+    for (int j = i; j < N; j++)
     {
-        for (i = 0; i < 15 - 1; i++)
-        {
-            if (sayi[1][i] < sayi[1][i + 1])
-            {
-                tut = sayi[1][i];
-                sayi[1][i] = sayi[1][i + 1];
-                sayi[1][i + 1] = tut;
-
-                tut = sayi[0][i];
-                sayi[0][i] = sayi[0][i + 1];
-                sayi[0][i + 1] = tut;
-
-
-
-            }
-              else if (sayi[1][i] == sayi[1][i + 1])
-            {
-                if (sayi[0][i] > sayi[0][i + 1])
-                {
-                    tut = sayi[0][i];
-                    sayi[0][i] = sayi[0][i + 1];
-                    sayi[0][i + 1] = tut;
-
-                    tut = sayi[1][i];
-                    sayi[1][i] = sayi[1][i + 1];
-                    sayi[1][i + 1] = tut;
-                }
-            } 
-          
-        }
-    } 
+        index[j] = index[j + 1];
+    }
 }
 
-yazdir(int sayi[2][15],int puan){
+degistir(int ogrNo, int yeniNot)
+{
+
+    int i;
     for (int i = 0; i < N; i++)
     {
-        if (sayi[1][i]>=puan)
+        if (ogrenciNotlari[0][i] == ogrNo)
         {
-            printf("%d-%d\n",sayi[0][i],sayi[1][i]);
+            ogrenciNotlari[1][i] = yeniNot;
+            break;
         }
-        
     }
-    
+
+    ekle(ogrenciNotlari, index);
 }
 
-sil(int sayi[2][15],int indis){
+yazdir(int filtreNot)
+{
+
+    int i;
+    for (i = N-1; i>0; i--)
+    {
+        if (ogrenciNotlari[1][index[i]] > filtreNot)
+        {
+            break;
+        }
+    }
+     
     
+    for (int j = 0; j <=i; j++)
+    {
+        printf("%d-%d\n", ogrenciNotlari[0][index[j]], ogrenciNotlari[1][index[j]]);
+    }
 }
