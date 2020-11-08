@@ -1,3 +1,9 @@
+/*
+Öğrenci No: 20110608
+Ad Soyad: Fuat ŞENGÜL
+Konu: Veri Yapıları Dersi / Bağlantılı Liste İndex Tablosu
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
