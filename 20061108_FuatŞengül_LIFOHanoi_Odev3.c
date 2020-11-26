@@ -1,5 +1,5 @@
 /*
-Öğrenci No: 20110608
+Öğrenci No: 20061108
 Ad SOyad: Fuat ŞENGÜL
 Konu: Veri Yapıları Dersi / LIFO ile Hanoi Kulesi Çözümü
 */
